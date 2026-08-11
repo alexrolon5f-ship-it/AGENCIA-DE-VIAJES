@@ -53,6 +53,7 @@ header {
     padding: 15px 30px;
     background-color: #2563EB;
     border-bottom: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
 
 .logo {
@@ -129,6 +130,7 @@ nav a.activo {
 .boton:hover {
     background-color: #60A5FA;
     transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(37,99,235,0.3);
 }
 .boton-borde {
     background: transparent;
@@ -234,7 +236,18 @@ section {
     font-size: 34px;
     text-align: center;
     color: #2563EB;
-    margin-bottom: 10px;
+    margin-bottom: 18px;
+    position: relative;
+}
+
+.titulo-seccion::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    margin: 14px auto 0;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #2563EB, #60A5FA);
 }
 
 .subtitulo-seccion {
@@ -254,8 +267,9 @@ section {
     margin: 0 auto 30px;
     padding: 35px;
     border: 2px solid #2563EB;
-    border-radius: 12px;
+    border-radius: 16px;
     text-align: center;
+    box-shadow: 0 12px 30px rgba(37,99,235,0.12);
 }
 
 .cuadricula {
@@ -272,6 +286,12 @@ section {
     box-shadow: 0 8px 20px rgba(0,0,0,0.10);
     display: flex;
     flex-direction: column;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.tarjeta:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.16);
 }
 
 .tarjeta img {
@@ -413,6 +433,11 @@ section {
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+.testimonio:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.14);
 }
 .testimonio .autor {
     margin-top: 12px;
@@ -428,9 +453,14 @@ section {
 .galeria-cuadricula figure {
     margin: 0;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     position: relative;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    transition: box-shadow .3s ease;
+}
+.galeria-cuadricula figure:hover {
+    box-shadow: 0 14px 30px rgba(0,0,0,0.2);
 }
 .galeria-cuadricula img {
     width: 100%;
@@ -458,11 +488,19 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: color .2s ease;
+}
+.accordion-header:hover {
+    color: #2563EB;
 }
 .accordion-header::after {
     content: "+";
     font-size: 22px;
     color: #2563EB;
+    transition: transform .25s ease;
+}
+.accordion-item.activo .accordion-header::after {
+    transform: rotate(180deg);
 }
 .accordion-item.activo .accordion-header::after {
     content: "−";
@@ -490,6 +528,11 @@ section {
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+.miembro:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.14);
 }
 .miembro img {
     width: 150px;
@@ -497,6 +540,11 @@ section {
     object-fit: cover;
     border-radius: 50%;
     margin-bottom: 15px;
+    border: 3px solid #2563EB;
+    transition: transform .3s ease;
+}
+.miembro:hover img {
+    transform: scale(1.06);
 }
 .miembro .rol {
     color: #60A5FA;
@@ -518,6 +566,11 @@ section {
     font-weight: bold;
     padding: 5px 14px;
     border-radius: 20px;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+.badge-tec:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(37,99,235,0.35);
 }
 
 /*modal*/
@@ -525,58 +578,88 @@ section {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(10, 15, 30, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     justify-content: center;
     align-items: center;
     padding: 20px;
     z-index: 9999;
+    animation: fundidoModal .25s ease;
 }
 .modal.activo {
     display: flex;
+}
+@keyframes fundidoModal {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes entradaModal {
+    from { opacity: 0; transform: translateY(24px) scale(.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 .modal-contenido {
     background: white;
     width: 100%;
     max-width: 420px;
-    padding: 25px;
-    border-radius: 15px;
+    padding: 30px;
+    border-radius: 18px;
     text-align: center;
     z-index: 10000;
-    animation: aparecer 0.3s ease;
+    animation: entradaModal .35s cubic-bezier(.2,.9,.3,1.2);
     position: relative;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    border-top: 4px solid #2563EB;
 }
 .modal-contenido h3 {
     color: #2563EB;
     margin-bottom: 10px;
+    font-family: "ZenDots", sans-serif;
+    font-size: 20px;
 }
 .modal-contenido p {
     color: #333;
     margin-bottom: 20px;
+    line-height: 1.5;
 }
 .modal-contenido button {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     background: #2563EB;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
+    font-weight: bold;
+    transition: background-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.modal-contenido button:not(.modal-cerrar):hover {
+    background-color: #60A5FA;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(37,99,235,0.3);
 }
 .modal-contenido button.modal-cerrar {
     position: absolute;
-    top: 12px;
-    right: 16px;
-    width: auto;
-    background: none;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F3F4F6;
     border: none;
-    font-size: 20px;
+    border-radius: 50%;
+    font-size: 18px;
     line-height: 1;
-    padding: 4px;
     cursor: pointer;
-    color: #888;
+    color: #666;
+    transition: background-color .2s ease, color .2s ease, transform .2s ease;
 }
 .modal-contenido button.modal-cerrar:hover {
-    color: #333;
+    background: #e74c3c;
+    color: white;
+    transform: rotate(90deg);
 }
 
 .volver-arriba {
@@ -596,9 +679,15 @@ section {
     justify-content: center;
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     z-index: 500;
+    transition: background-color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 .volver-arriba.visible {
     display: flex;
+}
+.volver-arriba:hover {
+    background: #60A5FA;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(37,99,235,0.4);
 }
 
 footer {
@@ -642,6 +731,7 @@ footer {
     text-decoration: none;
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.15);
+    transition: background-color .2s ease, transform .2s ease;
 }
 .redes a img {
     width: 20px;
@@ -650,6 +740,7 @@ footer {
 }
 .redes a:hover {
     background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
 }
 .derechos {
     text-align: center;
@@ -758,7 +849,7 @@ body.dark .valor h4 {
 body.dark .valor {
     border-left-color: #60A5FA;
 }
-body.dark .valor .icono img, body.dark .beneficio .icono img {
+body.dark .valor .icono img, body.dark .beneficio .icono img, body.dark .miembro img {
     border-color: #60A5FA;
 }
 body.dark .cuadro-destacado {
@@ -770,7 +861,8 @@ body.dark .subtitulo-seccion {
 body.dark .modal-contenido {
     background: #1b1b1b;
     color: #eee;
-    border: 2px solid #60A5FA;
+    border-top: 4px solid #60A5FA;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6);
 }
 body.dark .modal-contenido p {
     color: #ddd;
@@ -780,6 +872,14 @@ body.dark .modal-contenido h3 {
 }
 body.dark .modal-contenido .categoria {
     color: #60A5FA;
+}
+body.dark .modal-contenido button.modal-cerrar {
+    background: #2a2a2a;
+    color: #ccc;
+}
+body.dark .modal-contenido button.modal-cerrar:hover {
+    background: #e74c3c;
+    color: white;
 }
 body.dark .accordion-header {
     color: #eee;
@@ -815,8 +915,7 @@ body.dark .temas::after {
         position: fixed;
         top: 0;
         left: -270px;
-        width: 250px;
-        height: 100vh;
+            height: 100vh;
         background: #2563EB;
         display: flex;
         flex-direction: column;

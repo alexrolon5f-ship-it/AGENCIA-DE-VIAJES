@@ -38,8 +38,8 @@ body {
     width: 100%;
     background: white;
     padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 18px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.25);
     height: fit-content;
 }
 
@@ -77,11 +77,13 @@ body {
     font-size: 14px;
     outline: none;
     font-family: "Montserrat-Regular", Arial, sans-serif;
+    transition: border-color .2s ease, box-shadow .2s ease;
 }
 .campo input:focus,
 .campo select:focus,
 .campo textarea:focus {
     border-color: #2563EB;
+    box-shadow: 0 0 0 4px rgba(37,99,235,0.15);
 }
 .campo .error {
     color: #c0392b;
@@ -117,21 +119,27 @@ textarea {
 
 input[type="submit"] {
     width: 100%;
-    padding: 12px;
-    background: #60A5FA;
+    padding: 13px;
+    background: #2563EB;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 15px;
+    font-weight: bold;
     cursor: pointer;
     margin-top: 10px;
+    transition: background-color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 input[type="submit"]:hover {
     background: #60A5FA;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(37,99,235,0.3);
 }
 input[type="submit"]:disabled {
     background: #888;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 /* MODO OSCURO */
