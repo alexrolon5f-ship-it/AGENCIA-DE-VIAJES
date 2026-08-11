@@ -29,8 +29,9 @@ body {
     width: 100%;
     height: 220px;
     border: 0;
-    border-radius: 12px;
+    border-radius: 14px;
     margin-top: 15px;
+    box-shadow: 0 16px 36px rgba(0,0,0,0.3);
 }
 
 /* Contenedor principal del formulario */
@@ -47,9 +48,12 @@ body {
     font-family: "Montserrat-Regular", Arial, sans-serif;
     font-weight: bold;
     text-align: center;
-    color: #2563EB;
+    background: linear-gradient(135deg, #1e3a8a, #2563EB, #60A5FA);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin-bottom: 5px;
-    font-size: 26px;
+    font-size: 27px;
 }
 .subtitulo {
     text-align: center;
@@ -147,7 +151,10 @@ body.dark .formulario {
     background-color: #111;
 }
 body.dark .formulario h2 {
-    color: white;
+    background: linear-gradient(135deg, #60A5FA, #93c5fd, #bfdbfe);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 body.dark .subtitulo {
     color: #aaa;

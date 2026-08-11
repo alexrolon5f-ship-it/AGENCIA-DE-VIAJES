@@ -128,3 +128,86 @@ document.addEventListener("click", function (event) {
 
   }
 });
+
+// selector de moneda USD / Guaraníes, solo se agrega en las paginas que tienen precios
+// tasa aproximada de agosto 2026, se usa solo para mostrar un valor de referencia
+const TASA_CAMBIO_PYG = 6000;
+
+document.addEventListener("DOMContentLoaded", function () {
+  const preciosTexto = document.querySelectorAll(".precio");
+  const botonesConPrecio = document.querySelectorAll("[data-precio]");
+
+  if (!preciosTexto.length && !botonesConPrecio.length) return; // esta pagina no maneja precios
+
+  preciosTexto.forEach(function (el) {
+    el.dataset.usd = el.textContent;
+  });
+  botonesConPrecio.forEach(function (btn) {
+    btn.dataset.precioUsd = btn.dataset.precio;
+  });
+
+  let monedaActual = "usd";
+
+  function convertirTexto(textoUsd) {
+    return textoUsd.replace(/\$(\d+)/, function (coincidencia, numero) {
+      if (monedaActual === "usd") return "$" + numero;
+      const enGuaranies = Math.round(parseInt(numero, 10) * TASA_CAMBIO_PYG);
+      return "₲" + enGuaranies.toLocaleString("es-PY");
+    });
+  }
+
+  function aplicarMoneda() {
+    preciosTexto.forEach(function (el) {
+      el.textContent = convertirTexto(el.dataset.usd);
+    });
+    botonesConPrecio.forEach(function (btn) {
+      btn.dataset.precio = convertirTexto(btn.dataset.precioUsd);
+    });
+  }
+
+  const botonMoneda = document.createElement("button");
+  botonMoneda.type = "button";
+  botonMoneda.className = "moneda-boton";
+  botonMoneda.setAttribute("aria-label", "Cambiar a Guaraníes");
+  botonMoneda.textContent = "USD";
+
+  const botonTema = document.querySelector(".temas");
+  if (botonTema) {
+    const contenedor = document.createElement("div");
+    contenedor.className = "controles-header";
+    botonTema.insertAdjacentElement("beforebegin", contenedor);
+    contenedor.appendChild(botonTema);
+    contenedor.appendChild(botonMoneda);
+  }
+
+  botonMoneda.addEventListener("click", function () {
+    monedaActual = monedaActual === "usd" ? "pyg" : "usd";
+    botonMoneda.textContent = monedaActual === "usd" ? "USD" : "₲ PYG";
+    botonMoneda.setAttribute("aria-label", monedaActual === "usd" ? "Cambiar a Guaraníes" : "Cambiar a Dólares");
+    aplicarMoneda();
+  });
+});
+
+// banner de cookies, aparece una vez y ya no se muestra mas gracias al localStorage
+document.addEventListener("DOMContentLoaded", function () {
+  if (localStorage.getItem("cookiesAceptadas") === "si") return;
+
+  const banner = document.createElement("div");
+  banner.className = "banner-cookies";
+  banner.innerHTML =
+    '<p>Usamos cookies propias para mejorar tu experiencia de navegación. Podés leer más en nuestra <a href="privacidad.html">Política de Privacidad</a>.</p>' +
+    '<button type="button" class="boton boton-cookies">Aceptar</button>';
+
+  document.body.appendChild(banner);
+  requestAnimationFrame(function () {
+    banner.classList.add("visible");
+  });
+
+  banner.querySelector(".boton-cookies").addEventListener("click", function () {
+    localStorage.setItem("cookiesAceptadas", "si");
+    banner.classList.remove("visible");
+    setTimeout(function () {
+      banner.remove();
+    }, 400);
+  });
+});
