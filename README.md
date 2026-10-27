@@ -12,7 +12,7 @@ Autor: Alex Rolon
 - `blog.html` - Noticias
 - `faq.html` - Preguntas frecuentes
 - `contacto.html` - Formulario de contacto (EmailJS) y ubicación
-- `desarrolladores.html` - Inforomacion del desarrollador
+- `desarrolladores.html` - Informacion del desarrollador
 - `privacidad.html` - Política de privacidad
 - `CSS/` - hojas de estilo
 - `JS/` - scripts (modo oscuro, modales, validación de formulario)
